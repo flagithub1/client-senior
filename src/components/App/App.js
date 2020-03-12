@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { Route } from 'react-router-dom'
-
+import Home from '../Home/Home'
+// import TransactionForm from '../TransactionForm/TransactionForm'
+import Transactions from '../Transactions/Transactions'
+import Transaction from '../Transaction/Transaction'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
+import TransactionEdit from './../TransactionEdit/TransactionEdit'
+import TransactionCreate from './../TransactionCreate/TransactionCreate'
 import Header from '../Header/Header'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
@@ -54,6 +59,20 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute exact user={user} path='/transactions' render={() => (
+            <Transactions user={user} msgAlert={this.msgAlert} />
+          )} />
+          <AuthenticatedRoute exact user={user} path='/transactions/:id' render={({ match }) => (
+            <Transaction user={user} msgAlert={this.msgAlert} match={match} />
+          )} />
+          <AuthenticatedRoute exact user={user} path='/transactions-create' render={() => (
+            <TransactionCreate user={user} msgAlert={this.msgAlert} />
+          )} />
+          <AuthenticatedRoute exact user={user} path='/transactions/:id/edit' render={({ match }) => (
+            <TransactionEdit user={user} msgAlert={this.msgAlert} match={match} />
+          )} />
+          <Route exact path="/" component={Home} />
+
         </main>
       </Fragment>
     )
